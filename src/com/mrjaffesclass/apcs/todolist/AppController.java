@@ -72,10 +72,20 @@ public class AppController implements MessageHandler {
       "Get gas in the car",
       "Deposit paycheck",
     };
+    String[] initialDates={
+    "Wed 03/10",
+    "Fri 04/20",
+    "Sun 10/30",
+    "Mon 02/28",
+    "Sat 07/15",
+    "Fri 07/14",
+    };
     
     // Loop through initialData and create items to add to the appModel
-    for (String description : initialData) {
-      ToDoItem item = new ToDoItem(-1, description);
+    for (int i =0;i<initialData.length;i++) {
+      String description = initialData[i];
+      String date = initialDates[i];
+      ToDoItem item = new ToDoItem(-1, description, date);
       appModel.putItem (item);
     }
   }
