@@ -154,6 +154,8 @@ public class MainView extends javax.swing.JFrame implements MessageHandler {
         newItemBtn = new javax.swing.JButton();
         aboutBtn = new javax.swing.JButton();
         removeCompleteItemsBtn = new javax.swing.JButton();
+        SortUp = new javax.swing.JButton();
+        SortDown = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -203,6 +205,20 @@ public class MainView extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
+        SortUp.setText("Sort ^");
+        SortUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SortUpActionPerformed(evt);
+            }
+        });
+
+        SortDown.setText("Sort v");
+        SortDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SortDownActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -213,7 +229,12 @@ public class MainView extends javax.swing.JFrame implements MessageHandler {
                 .addGap(78, 78, 78)
                 .addComponent(removeCompleteItemsBtn)
                 .addGap(68, 68, 68)
-                .addComponent(aboutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(aboutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SortUp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SortDown)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -223,7 +244,9 @@ public class MainView extends javax.swing.JFrame implements MessageHandler {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newItemBtn)
                     .addComponent(aboutBtn)
-                    .addComponent(removeCompleteItemsBtn))
+                    .addComponent(removeCompleteItemsBtn)
+                    .addComponent(SortUp)
+                    .addComponent(SortDown))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
                 .addContainerGap())
@@ -264,11 +287,21 @@ public class MainView extends javax.swing.JFrame implements MessageHandler {
     dialog.setVisible(true);
   }//GEN-LAST:event_aboutBtnActionPerformed
 
+    private void SortUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SortUpActionPerformed
+        messenger.notify("sortUp");
+    }//GEN-LAST:event_SortUpActionPerformed
+
+    private void SortDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SortDownActionPerformed
+        messenger.notify("sortDown");
+    }//GEN-LAST:event_SortDownActionPerformed
+
   /**
    * @param args the command line arguments
    */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton SortDown;
+    private javax.swing.JButton SortUp;
     private javax.swing.JButton aboutBtn;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
