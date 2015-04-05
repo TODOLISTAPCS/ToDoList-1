@@ -184,51 +184,73 @@ public class AppModel implements MessageHandler {
     /**
      * Removes all completed items from the to do list
      */
-    public void removeCompletedItems() {
+ public void removeCompletedItems() {
         // Create an empty list
-        ArrayList<ToDoItem> newList = new ArrayList<>();
+        ArrayList<ToDoItem> newerList = new ArrayList<>();
 
     // Loop through the to do list and if isDone is false
         // add it to the new list
         for (ToDoItem item : toDoList) {
             if (!item.isDone()) {
-                newList.add(item);
+                newerList.add(item);
             }
         }
 
         // Clear the to do list and add the items that were not completed
         toDoList.clear();
-        for (ToDoItem item : newList) {
+        for (ToDoItem item : newerList) {
             toDoList.add(item);
         }
     }
-
+ArrayList<ToDoItem> newList = new ArrayList<>();
     public void sortUpItems() {
-       sortUp(0);
-    }
-
-    ArrayList<ToDoItem> newList = new ArrayList<>();
-
-    public void addNewList() {
-        for (ToDoItem item : toDoList) {
+        
+         for (ToDoItem item : toDoList) {
             newList.add(item);
         }
+        sortUp(0);
+        
+        toDoList.clear();
+        
+        for (ToDoItem item : newList) {
+            toDoList.add(item);
+        }
+        
     }
+
+   
+
+    
 
     public void sortUp(int n) {
         
         String a = newList.get(n).getDeadline();
         String b = newList.get(n+1).getDeadline();
+        int c = Integer.parseInt(a.substring(5, 6));
+        int d = Integer.parseInt(b.substring(5, 6));
+        
         if (n >= newList.size() - 1) {
-             b = "";
-        } else {
+             b = newList.get(n).getDeadline();
+        }
+        else 
+        {
             b = newList.get(n + 1).getDeadline();
         }
-        if (Integer.parseInt(a.substring(5, 7)) > Integer.parseInt(b.substring(5, 7))) {
+        
+        
+        if (Integer.parseInt(a.substring(4, 5))!=0){
+            c = Integer.parseInt(a.substring(4, 6));
+        }else if(Integer.parseInt(b.substring(4, 5))!=0){
+            d = Integer.parseInt(b.substring(4, 6));
+        }
+            
+        if ( c > d) {
             ToDoItem q = newList.remove(n);
             newList.add(q);
             sortUp(n);
-        } else {
+        } 
+        else if (c < d)
+        {
             n++;
             sortUp(n);
         }
