@@ -96,10 +96,14 @@ public class AppModel implements MessageHandler {
                 removeCompletedItems();
                 messenger.notify("saved");
                 messenger.notify("items", this.getItems());
+                break;
+      //Receives a signal to sort the items from January-December    
+           
             case "sortUp":
                 sortUpItems();
-                messenger.notify("saved");
+                messenger.notify("saved", null, true);
                 messenger.notify("items", this.getItems());
+                break;
         }
     }
 
@@ -184,7 +188,7 @@ public class AppModel implements MessageHandler {
     /**
      * Removes all completed items from the to do list
      */
- public void removeCompletedItems() {
+    public void removeCompletedItems() {
         // Create an empty list
         ArrayList<ToDoItem> newerList = new ArrayList<>();
 
@@ -222,7 +226,7 @@ ArrayList<ToDoItem> newList = new ArrayList<>();
 
     
 
-    public void sortUp(int n) {
+    public void sortUp(int n){
         
         String a = newList.get(n).getDeadline();
         String b = newList.get(n+1).getDeadline();
@@ -240,19 +244,42 @@ ArrayList<ToDoItem> newList = new ArrayList<>();
         
         if (Integer.parseInt(a.substring(4, 5))!=0){
             c = Integer.parseInt(a.substring(4, 6));
-        }else if(Integer.parseInt(b.substring(4, 5))!=0){
+        } 
+        if(Integer.parseInt(b.substring(4, 5))!=0){
             d = Integer.parseInt(b.substring(4, 6));
         }
             
         if ( c > d) {
             ToDoItem q = newList.remove(n);
-            newList.add(q);
-            sortUp(n);
+            newList.add(n+1,q);
+            sortUp(0);
         } 
         else if (c < d)
         {
             n++;
             sortUp(n);
+        }
+        else if (c == d){
+          c = Integer.parseInt(a.substring(8));
+          d = Integer.parseInt(b.substring(8));
+          
+          if (Integer.parseInt(a.substring(7, 8))!=0){
+            c = Integer.parseInt(a.substring(7));
+        } 
+          if (Integer.parseInt(b.substring(7, 8))!=0){
+            d = Integer.parseInt(b.substring(7));
+        }
+            
+        if ( c > d) {
+            ToDoItem y = newList.remove(n);
+            newList.add(y);
+            sortUp(0);
+        } 
+        else if (c < d)
+        {
+            n++;
+            sortUp(n);
+        }
         }
     }
 
