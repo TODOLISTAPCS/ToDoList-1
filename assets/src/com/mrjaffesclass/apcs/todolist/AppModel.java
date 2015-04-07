@@ -19,6 +19,7 @@ public class AppModel implements MessageHandler {
     private final Messenger messenger;
     private final ArrayList<ToDoItem> toDoList;
     private int nextId = 0;
+    private final ArrayList<ToDoItem> newList;
 
     /**
      * Model constructor: Create the data representation of the program
@@ -29,6 +30,7 @@ public class AppModel implements MessageHandler {
     public AppModel(Messenger _messenger) {
         messenger = _messenger;
         toDoList = new ArrayList<>();   // We start with an empty list
+        newList = new ArrayList<>();
     }
 
     /**
@@ -95,15 +97,25 @@ public class AppModel implements MessageHandler {
             case "removeCompletedItems":
                 removeCompletedItems();
                 messenger.notify("saved");
-                messenger.notify("items", this.getItems());
+                if(this.getNewerItems().isEmpty()){
+                    messenger.notify("items", this.getItems());
+                }else{
+                    messenger.notify("items", this.getNewerItems());}
                 break;
       //Receives a signal to sort the items from January-December    
            
             case "sortUp":
                 sortUpItems();
                 messenger.notify("saved", null, true);
-                messenger.notify("items", this.getItems());
+                messenger.notify("items", this.getNewerItems());
                 break;
+            //Receives a signal to sort the items from December-January
+            case "sortDown":
+                sortDownItems();
+                messenger.notify("saved", null, true);
+                messenger.notify("items", this.getNewerItems());
+                break;
+                
         }
     }
 
@@ -143,7 +155,9 @@ public class AppModel implements MessageHandler {
     public ArrayList getItems() {
         return toDoList;
     }
-
+    public ArrayList getNewerItems() {
+        return newList;
+    }
     /**
      * Add a new to do item to the list
      *
@@ -154,7 +168,11 @@ public class AppModel implements MessageHandler {
         if (item.getId() == -1) {
             // Item is new, add it to the list
             item.setId(nextId);
-            toDoList.add(item);
+            if(newList.isEmpty())
+                toDoList.add(item);
+            else
+                newList.add(item);
+            
             nextId++;
         } else {
             // Item already exists, modify the fields of the existing item
@@ -206,32 +224,44 @@ public class AppModel implements MessageHandler {
             toDoList.add(item);
         }
     }
-ArrayList<ToDoItem> newList = new ArrayList<>();
-    public void sortUpItems() {
+
+   /**
+    * Sorts the code from January-December from the method sortUp
+    */
+     public void sortUpItems() {
         
          for (ToDoItem item : toDoList) {
             newList.add(item);
         }
-        sortUp(0);
-        
-        toDoList.clear();
-        
-        for (ToDoItem item : newList) {
-            toDoList.add(item);
+         toDoList.clear();
+         sortUp(0);
         }
+     
+    /**
+    * Sorts the code from December-January from the method sortDown
+    */
+     public void sortDownItems() {
         
-    }
+         for (ToDoItem item : toDoList) {
+            newList.add(item);
+        }
+         toDoList.clear();
+         sortDown(newList.size());
+        }
 
    
 
     
-
+/**
+ * Sorts the code from January-December recursively
+ * @param n     position it starts sorting from
+ */
     public void sortUp(int n){
         
         String a = newList.get(n).getDeadline();
-        String b = newList.get(n+1).getDeadline();
+        String b;
         int c = Integer.parseInt(a.substring(5, 6));
-        int d = Integer.parseInt(b.substring(5, 6));
+        
         
         if (n >= newList.size() - 1) {
              b = newList.get(n).getDeadline();
@@ -240,13 +270,21 @@ ArrayList<ToDoItem> newList = new ArrayList<>();
         {
             b = newList.get(n + 1).getDeadline();
         }
-        
+        int d = Integer.parseInt(b.substring(5, 6));
         
         if (Integer.parseInt(a.substring(4, 5))!=0){
             c = Integer.parseInt(a.substring(4, 6));
+            if(c>12)
+                c=12;
+            else if(c<1)
+                c=1;
         } 
         if(Integer.parseInt(b.substring(4, 5))!=0){
             d = Integer.parseInt(b.substring(4, 6));
+            if(d>12)
+                d=12;
+            else if(d<1)
+                d=1;
         }
             
         if ( c > d) {
@@ -265,15 +303,23 @@ ArrayList<ToDoItem> newList = new ArrayList<>();
           
           if (Integer.parseInt(a.substring(7, 8))!=0){
             c = Integer.parseInt(a.substring(7));
+            if(c>31)
+                c=31;
+            else if(c<1)
+                c=1;
         } 
           if (Integer.parseInt(b.substring(7, 8))!=0){
             d = Integer.parseInt(b.substring(7));
+            if(d>31)
+                d=31;
+            else if(d<1)
+                d=1;
         }
             
         if ( c > d) {
             ToDoItem y = newList.remove(n);
             newList.add(y);
-            sortUp(0);
+            sortUp(n);
         } 
         else if (c < d)
         {
@@ -282,5 +328,80 @@ ArrayList<ToDoItem> newList = new ArrayList<>();
         }
         }
     }
-
+/**
+ * Sorts the code from December-January recursively
+ * @param n     position it starts sorting from
+ */
+    public void sortDown(int n){
+        
+        String a = newList.get(n).getDeadline();
+        String b;
+        int c = Integer.parseInt(a.substring(5, 6));
+        
+        
+        if (n <= 0) {
+             b = newList.get(n).getDeadline();
+        }
+        else 
+        {
+            b = newList.get(n - 1).getDeadline();
+        }
+        int d = Integer.parseInt(b.substring(5, 6));
+        
+        if (Integer.parseInt(a.substring(4, 5))!=0){
+            c = Integer.parseInt(a.substring(4, 6));
+            if(c>12)
+                c=12;
+            else if(c<1)
+                c=1;
+        } 
+        if(Integer.parseInt(b.substring(4, 5))!=0){
+            d = Integer.parseInt(b.substring(4, 6));
+            if(d>12)
+                d=12;
+            else if(d<1)
+                d=1;
+        }
+            
+        if ( c > d) {
+            ToDoItem q = newList.remove(n);
+            newList.add(n-1,q);
+            sortUp(newList.size());
+        } 
+        else if (c < d)
+        {
+            n--;
+            sortUp(n);
+        }
+        else if (c == d){
+          c = Integer.parseInt(a.substring(8));
+          d = Integer.parseInt(b.substring(8));
+          
+          if (Integer.parseInt(a.substring(7, 8))!=0){
+            c = Integer.parseInt(a.substring(7));
+            if(c>31)
+                c=31;
+            else if(c<1)
+                c=1;
+        } 
+          if (Integer.parseInt(b.substring(7, 8))!=0){
+            d = Integer.parseInt(b.substring(7));
+            if(d>31)
+                d=31;
+            else if(d<1)
+                d=1;
+        }
+            
+        if ( c > d) {
+            ToDoItem y = newList.remove(n);
+            newList.add(n-1,y);
+            sortUp(newList.size());
+        } 
+        else if (c < d)
+        {
+            n--;
+            sortUp(n);
+        }
+        }
+    }
 }
