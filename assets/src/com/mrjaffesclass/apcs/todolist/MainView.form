@@ -30,6 +30,11 @@
               <Component id="removeCompleteItemsBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
               <Component id="aboutBtn" min="-2" pref="77" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="SortUp" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="SortDown" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Component id="jScrollPane2" pref="686" max="32767" attributes="0"/>
       </Group>
@@ -42,6 +47,8 @@
                   <Component id="newItemBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="aboutBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="removeCompleteItemsBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="SortUp" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="SortDown" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane2" pref="439" max="32767" attributes="0"/>
@@ -124,6 +131,22 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeCompleteItemsBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="SortUp">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Sort ^"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SortUpActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="SortDown">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Sort v"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SortDownActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

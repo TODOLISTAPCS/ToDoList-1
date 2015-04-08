@@ -11,6 +11,7 @@ public class ToDoItem {
    * id:          ID number of to do item. Assigned when added to list
    * description: Description of to do item
    * done:        True if to do item is complete
+   * deadline:    Deadline of the to so item
    */
   private int id;               
   private String description;
@@ -21,6 +22,7 @@ public class ToDoItem {
    * Constructor with done set to false in constructor
    * @param _id           ID number of to do item
    * @param _description  Description of to do item
+   * @param _deadline     Deadline of the to do item
    */
   public ToDoItem(int _id, String _description, String _deadline) {
     description = _description;
@@ -122,4 +124,5 @@ public class ToDoItem {
     this.setDeadline(anotherItem.getDeadline());
   }
 
+ 
 }
