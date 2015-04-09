@@ -39,6 +39,8 @@ public class AppModel implements MessageHandler {
     messenger.subscribe("saveItem", this);
     messenger.subscribe("deleteItem", this);
     messenger.subscribe("removeCompletedItems", this);
+    messenger.subscribe("sortUp", this);
+    messenger.subscribe("sortDown", this);
   }
 
   // This method implements the messageHandler method defined in
@@ -84,13 +86,31 @@ public class AppModel implements MessageHandler {
         messenger.notify("items", this.getItems(), true);
         break;
         
-      // We've been told to remove all items that have their 'done' flag
+      
+         
+      case "sortUp":
+          //do something with the sort method?
+          //call sortUp();
+         sortByDate(true);
+        messenger.notify("saved", null, true);
+        messenger.notify("items", this.getItems(), true);
+          break;
+          
+      case "sortDown":
+          //do something else with the sort method?
+          //call sortDown();
+           sortByDate(false);
+        messenger.notify("saved", null, true);
+        messenger.notify("items", this.getItems(), true);
+          break;
+  // We've been told to remove all items that have their 'done' flag
       // set.  Do it, then send a confirmation message, then send the
       // updated to do list to others
       case "removeCompletedItems":
         removeCompletedItems();
         messenger.notify("saved");
         messenger.notify("items", this.getItems());
+              
     }
   }
 
@@ -186,4 +206,19 @@ public class AppModel implements MessageHandler {
       toDoList.add(item);
     }
   }
+  /**
+   * Sorts the list according to date. If date is null, it goes last
+   * @param earliestFirst if true, sorts from earliest to latest, 
+   * if false sorts the opposite
+   */
+   public void sortByDate(boolean earliestFirst) {
+       if (earliestFirst == true){
+       ascend dateComparator = new ascend();
+       Collections.sort(toDoList, dateComparator);
+       }
+       else{
+           descend dateComparator = new descend();
+           Collections.sort(toDoList, dateComparator);
+       }
+   }
 }

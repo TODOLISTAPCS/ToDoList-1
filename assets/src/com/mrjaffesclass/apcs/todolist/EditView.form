@@ -23,19 +23,6 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="completedCheckBox" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="date" min="-2" pref="82" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
           <Group type="102" alignment="1" attributes="0">
               <Component id="deleteBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
@@ -43,25 +30,28 @@
               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
               <Component id="cancelBtn" min="-2" max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jScrollPane1" min="-2" pref="334" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="jXDatePicker1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="completedLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="completedCheckBox" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="dateLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="datePicker" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="334" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
+              <EmptySpace pref="14" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -69,27 +59,26 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jXDatePicker1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="2" attributes="0">
-                  <Component id="jLabel3" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="completedCheckBox" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel4" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="date" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel5" alignment="2" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="completedLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="completedCheckBox" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="datePicker" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="dateLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="okBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cancelBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -152,7 +141,7 @@
     </Container>
     <Component class="javax.swing.JCheckBox" name="completedCheckBox">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="completedLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Completed"/>
       </Properties>
@@ -165,26 +154,11 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteBtnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
+    <Component class="org.jdesktop.swingx.JXDatePicker" name="datePicker">
+    </Component>
+    <Component class="javax.swing.JLabel" name="dateLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Deadline"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="date">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dateActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Set deadline as  ddd mm/dd"/>
-      </Properties>
-    </Component>
-    <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker1">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel6">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Calender to help with date"/>
+        <Property name="text" type="java.lang.String" value="Date"/>
       </Properties>
     </Component>
   </SubComponents>

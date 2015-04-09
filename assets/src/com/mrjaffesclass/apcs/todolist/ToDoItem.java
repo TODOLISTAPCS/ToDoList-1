@@ -1,4 +1,13 @@
 package com.mrjaffesclass.apcs.todolist;
+
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * To do item
  * 
@@ -12,21 +21,51 @@ public class ToDoItem {
    * description: Description of to do item
    * done:        True if to do item is complete
    */
+  private Calendar cal = Calendar.getInstance();  
+    
   private int id;               
   private String description;
+  private Date date;
+  private SimpleDateFormat format = new SimpleDateFormat("E M/d");
   private boolean done;
-  private String deadline;
   
   /**
    * Constructor with done set to false in constructor
    * @param _id           ID number of to do item
    * @param _description  Description of to do item
    */
-  public ToDoItem(int _id, String _description, String _deadline) {
+  public ToDoItem(int _id, String _description) {
     description = _description;
     id = _id;
-    deadline= _deadline;
+    date = cal.getTime();
     done = false;     // Default to not completed
+  }
+ 
+  /**
+   * Constructor with done set to false in constructor
+   * @param _id           ID number of to do item
+   * @param _description  Description of to do item
+   * @param _date         The date a task must be done by
+   */
+  public ToDoItem(int _id, String _description, String _date) {
+    description = _description;
+    id = _id;
+    date = calcDate(_date);
+    done = false;     // Default to not completed
+  }
+  
+    /**
+   * Constructor
+   * @param _id           ID number of to do item
+   * @param _description  Description of to do item
+   * @param _done         Done flag
+   * @param _date         The date a task must be done by
+   */
+  public ToDoItem(int _id, String _description, boolean _done, String _date) {
+    description = _description;
+    id = _id;
+    date = cal.getTime();
+    done = _done;     // Default to not completed
   }
 
   /**
@@ -35,26 +74,37 @@ public class ToDoItem {
    * @param _description  Description of to do item
    * @param _done         Done flag
    */
-  public ToDoItem(int _id, String _description, String _deadline, boolean _done) {
+  public ToDoItem(int _id, String _description, boolean _done) {
     description = _description;
     id = _id;
-    deadline = _deadline;
+    date = cal.getTime();
     done = _done;     // Default to not completed
   }
-  /**
-   * Get the deadline of the item
-   * @return deadline
-   */
-  public String getDeadline(){
-  return deadline;
+     
+  public Date calcDate(String _input)
+  {
+      Date tempDate = null;
+      try {
+          tempDate  = format.parse(_input);
+      } catch (ParseException ex) 
+      {
+      }
+      return tempDate ;
   }
   
-  /**
-   *  Set the deadline for the item
-   * @param date The value to be set
-   */
-  public void setDeadline(String date){
-  this.deadline = date;
+  public String getDate()
+  {
+      return format.format(date);
+  }
+  
+  public void setDate(Date date)
+  {
+      this.date = date;
+  }
+  
+  public void setDate(String date)
+  {
+      this.date = calcDate(date);
   }
   
   /**
@@ -113,13 +163,12 @@ public class ToDoItem {
   }
   
   /**
-   * Transfer the date, description and done flag of another to do item into this one
+   * Transfer the description and done flag of another to do item into this one
    * @param anotherItem Item whose data values we are copying
    */
   public void merge(ToDoItem anotherItem) {
     this.setDescription(anotherItem.getDescription());
-    this.setDone(anotherItem.isDone());
-    this.setDeadline(anotherItem.getDeadline());
+    this.setDone(anotherItem.isDone());    
   }
 
 }

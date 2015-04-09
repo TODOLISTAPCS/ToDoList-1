@@ -55,7 +55,6 @@ public class EditView extends javax.swing.JDialog implements MessageHandler {
   private void setFieldValues() {
     descriptionText.setText(item.getDescription());
     completedCheckBox.setSelected(item.isDone());
-    date.setText(item.getDeadline());
   }
   
   /**
@@ -64,7 +63,7 @@ public class EditView extends javax.swing.JDialog implements MessageHandler {
   private void getValues() {
     item.setDescription(descriptionText.getText());
     item.setDone(completedCheckBox.isSelected());
-    item.setDeadline(date.getText());
+    item.setDate(datePicker.getDate());
   }
   
   /**
@@ -101,13 +100,10 @@ public class EditView extends javax.swing.JDialog implements MessageHandler {
         jScrollPane1 = new javax.swing.JScrollPane();
         descriptionText = new javax.swing.JTextArea();
         completedCheckBox = new javax.swing.JCheckBox();
-        jLabel3 = new javax.swing.JLabel();
+        completedLabel = new javax.swing.JLabel();
         deleteBtn = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        date = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
-        jLabel6 = new javax.swing.JLabel();
+        datePicker = new org.jdesktop.swingx.JXDatePicker();
+        dateLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -139,7 +135,7 @@ public class EditView extends javax.swing.JDialog implements MessageHandler {
 
         jScrollPane1.setViewportView(descriptionText);
 
-        jLabel3.setText("Completed");
+        completedLabel.setText("Completed");
 
         deleteBtn.setText("Delete item");
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -148,76 +144,55 @@ public class EditView extends javax.swing.JDialog implements MessageHandler {
             }
         });
 
-        jLabel4.setText("Deadline");
-
-        date.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dateActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setText("Set deadline as  ddd mm/dd");
-
-        jLabel6.setText("Calender to help with date");
+        dateLabel.setText("Date");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(completedCheckBox)
-                .addGap(34, 34, 34)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(deleteBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(okBtn)
                 .addGap(2, 2, 2)
                 .addComponent(cancelBtn))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
-                        .addContainerGap())))
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(completedLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(completedCheckBox)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dateLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(datePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel3)
-                    .addComponent(completedCheckBox)
-                    .addComponent(jLabel4)
-                    .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(completedLabel)
+                        .addComponent(completedCheckBox))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(datePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dateLabel)))
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(okBtn)
@@ -242,27 +217,20 @@ public class EditView extends javax.swing.JDialog implements MessageHandler {
     itemAction("delete");
   }//GEN-LAST:event_deleteBtnActionPerformed
 
-    private void dateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dateActionPerformed
-
   /**
    * @param args the command line arguments
    */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;
     private javax.swing.JCheckBox completedCheckBox;
-    private javax.swing.JTextField date;
+    private javax.swing.JLabel completedLabel;
+    private javax.swing.JLabel dateLabel;
+    private org.jdesktop.swingx.JXDatePicker datePicker;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JTextArea descriptionText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.JButton okBtn;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables

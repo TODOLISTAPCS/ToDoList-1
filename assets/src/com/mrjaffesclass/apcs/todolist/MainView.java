@@ -15,13 +15,13 @@ public class MainView extends javax.swing.JFrame implements MessageHandler {
   private final int ID_FIELD = 0;
   private final int DONE_FIELD = 1;
   private final int DESCRIPTION_FIELD = 2;
-  private final int DEADLINE_FIELD = 3;
+  private final int DATE_FIELD = 3;
   
   private final int DONE_COLUMN = 0;
   
-  private final int DONE_FIELD_WIDTH = 65;
+  private final int DONE_FIELD_WIDTH = 100;
   private final int DESCRIPTION_FIELD_WIDTH = 475;
-  private final int DEADLINE_FIELD_WIDTH = 100;
+  private final int DATE_FIELD_WIDTH = 150;
   private final int ROW_HEIGHT = 25;
   
   private final int X_POSITION = 100;
@@ -43,7 +43,7 @@ public class MainView extends javax.swing.JFrame implements MessageHandler {
     // Remove the ID column and set the row height
     jTable1.getColumnModel().getColumn(DONE_FIELD).setPreferredWidth(DONE_FIELD_WIDTH);  // Set width of checkbox column
     jTable1.getColumnModel().getColumn(DESCRIPTION_FIELD).setPreferredWidth(DESCRIPTION_FIELD_WIDTH);  // Set width of checkbox column
-    jTable1.getColumnModel().getColumn(DEADLINE_FIELD).setPreferredWidth(DEADLINE_FIELD_WIDTH);
+    jTable1.getColumnModel().getColumn(DATE_FIELD).setPreferredWidth(DATE_FIELD_WIDTH);
     jTable1.removeColumn(jTable1.getColumnModel().getColumn(ID_FIELD));  // Remove the ID column from the table
     jTable1.setRowHeight(ROW_HEIGHT);
   }
@@ -100,7 +100,7 @@ public class MainView extends javax.swing.JFrame implements MessageHandler {
       tableModel.setValueAt(item.getId(), i, ID_FIELD);
       tableModel.setValueAt(item.isDone(), i, DONE_FIELD);
       tableModel.setValueAt(item.getDescription(), i, DESCRIPTION_FIELD);
-      tableModel.setValueAt(item.getDeadline(),i,DEADLINE_FIELD);
+      tableModel.setValueAt(item.getDate(), i, DATE_FIELD);
     }
 }
   
@@ -134,8 +134,8 @@ public class MainView extends javax.swing.JFrame implements MessageHandler {
     ToDoItem item = new ToDoItem(              
       (int)tableModel.getValueAt(row, ID_FIELD),
       (String)tableModel.getValueAt(row, DESCRIPTION_FIELD),
-      (String)tableModel.getValueAt(row, DEADLINE_FIELD),
-      (boolean)tableModel.getValueAt(row, DONE_FIELD)
+      (boolean)tableModel.getValueAt(row, DONE_FIELD),
+      (String)tableModel.getValueAt(row, DATE_FIELD)
     );
     return item;
   }
@@ -154,6 +154,8 @@ public class MainView extends javax.swing.JFrame implements MessageHandler {
         newItemBtn = new javax.swing.JButton();
         aboutBtn = new javax.swing.JButton();
         removeCompleteItemsBtn = new javax.swing.JButton();
+        Organize = new javax.swing.JButton();
+        Organize2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -162,11 +164,11 @@ public class MainView extends javax.swing.JFrame implements MessageHandler {
 
             },
             new String [] {
-                "id", "Complete", "Description", "Deadline"
+                "id", "Complete", "Description", "Date"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Boolean.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -181,6 +183,12 @@ public class MainView extends javax.swing.JFrame implements MessageHandler {
             }
         });
         jScrollPane2.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setHeaderValue("id");
+            jTable1.getColumnModel().getColumn(1).setHeaderValue("Complete");
+            jTable1.getColumnModel().getColumn(2).setHeaderValue("Description");
+            jTable1.getColumnModel().getColumn(3).setHeaderValue("Date");
+        }
 
         newItemBtn.setText("New");
         newItemBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -203,30 +211,53 @@ public class MainView extends javax.swing.JFrame implements MessageHandler {
             }
         });
 
+        Organize.setText("^");
+        Organize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OrganizeActionPerformed(evt);
+            }
+        });
+
+        Organize2.setText(" v");
+        Organize2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Organize2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(newItemBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78)
-                .addComponent(removeCompleteItemsBtn)
-                .addGap(68, 68, 68)
-                .addComponent(aboutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(newItemBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(removeCompleteItemsBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(aboutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Organize2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Organize)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(newItemBtn)
+                    .addComponent(Organize)
+                    .addComponent(Organize2)
                     .addComponent(aboutBtn)
-                    .addComponent(removeCompleteItemsBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
-                .addContainerGap())
+                    .addComponent(removeCompleteItemsBtn)
+                    .addComponent(newItemBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
 
         pack();
@@ -251,7 +282,7 @@ public class MainView extends javax.swing.JFrame implements MessageHandler {
   }//GEN-LAST:event_jTable1MouseClicked
 
   private void newItemBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newItemBtnActionPerformed
-    ToDoItem item = new ToDoItem(-1, "New to do item","date", false);
+    ToDoItem item = new ToDoItem(-1, "New to do item", false);
     editItem(item);
   }//GEN-LAST:event_newItemBtnActionPerformed
 
@@ -264,11 +295,26 @@ public class MainView extends javax.swing.JFrame implements MessageHandler {
     dialog.setVisible(true);
   }//GEN-LAST:event_aboutBtnActionPerformed
 
+    private void OrganizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrganizeActionPerformed
+        //when the sort up button is clicked; sort from the soonest deadline to the latest
+        //this is the way that actually makes sense to sort tasks
+        messenger.notify("sortUp");
+    }//GEN-LAST:event_OrganizeActionPerformed
+
+    private void Organize2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Organize2ActionPerformed
+        // TODO add your handling code here:
+        //when the sort down button is clicked; sort from latest deatline to newest deadline
+        //even though this makes no sense; attack priorities first man
+        messenger.notify("sortDown");
+    }//GEN-LAST:event_Organize2ActionPerformed
+
   /**
    * @param args the command line arguments
    */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Organize;
+    private javax.swing.JButton Organize2;
     private javax.swing.JButton aboutBtn;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
